@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Subscription;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
+use Native\Mobile\Facades\Dialog;
+
+#[Layout('layouts.app')]
+class SubscriptionForm extends Component
+{
+    public ?Subscription $subscription = null;
+
+    public string $name = '';
+
+    public string $price = '';
+
+    public ?string $url = null;
+
+    public string $title = '';
+
+    public function mount(?int $id = null): void
+    {
+        if ($id || request()->has('id')) {
+            $subscriptionId = $id ?? (int) request()->query('id');
+            $this->loadSubscription($subscriptionId);
+        }
+
+        $this->title = ($this->subscription ? 'Edit Subscription' : 'Add Subscription');
+    }
+
+    protected function loadSubscription(int $id): void
+    {
+        $this->subscription = Subscription::findOrFail($id);
+        $this->name = $this->subscription->name;
+        $this->price = (string) $this->subscription->price;
+        $this->url = $this->subscription->url;
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'url' => ['nullable', 'url', 'max:255'],
+        ];
+    }
+
+    public function save(): void
+    {
+        $this->validate();
+
+        $isNewSubscription = $this->subscription === null;
+
+        if ($this->subscription) {
+            $this->subscription->update([
+                'name' => $this->name,
+                'price' => (float) $this->price,
+                'url' => $this->url ?: null,
+            ]);
+
+            Dialog::toast('Subscription updated successfully!');
+        } else {
+            Subscription::create([
+                'name' => $this->name,
+                'price' => (float) $this->price,
+                'url' => $this->url ?: null,
+            ]);
+
+            Dialog::toast('Subscription added successfully!');
+        }
+
+        $this->reset(['name', 'price', 'url']);
+        $this->subscription = null;
+
+        $this->dispatch('subscription-saved');
+
+        $this->redirect(route('subscriptions'), navigate: true);
+    }
+
+    public function cancel(): void
+    {
+        $this->reset(['name', 'price', 'url']);
+        $this->subscription = null;
+
+        $this->redirect(route('subscriptions'), navigate: true);
+    }
+
+    public function render()
+    {
+        return view('livewire.subscription-form', [
+            'title' => $this->title,
+        ]);
+    }
+}
