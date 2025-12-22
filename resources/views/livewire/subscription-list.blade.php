@@ -1,37 +1,55 @@
 <div class="space-y-8">
-    <header class="space-y-4">
-        <p class="text-slate-600 dark:text-slate-400 mt-2">See where your recurring money goes every month and year.</p>
+    <header class="space-y-4 animate-fade-up">
+        <div class="inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-sky-100/70 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-sky-700 dark:border-sky-500/40 dark:bg-sky-500/10 dark:text-sky-200">
+            <span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>
+            Monthly Pulse
+        </div>
+        <h1 class="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Subscriptions at a glance</h1>
+        <p class="text-slate-600 dark:text-slate-400">See where your recurring money goes every month and year.</p>
     </header>
-    <section class="bg-white dark:bg-slate-900 rounded-2xl shadow p-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-            <p class="text-slate-500 dark:text-slate-400 text-sm uppercase">Total per month</p>
-            <p class="text-3xl font-semibold mt-1 text-slate-900 dark:text-white">
+    <section class="grid gap-4 sm:grid-cols-2 animate-fade-up animation-delay-150">
+        <div class="app-card p-6">
+            <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">Total per month</p>
+            <p class="text-3xl font-semibold mt-2 text-slate-900 dark:text-white">
                 {{ number_format($totalPerMonth, 2, '.', ',') }} €
             </p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Core monthly spend</p>
         </div>
-        <div>
-            <p class="text-slate-500 dark:text-slate-400 text-sm uppercase">Total per year</p>
-            <p class="text-3xl font-semibold mt-1 text-slate-900 dark:text-white">
+        <div class="app-card p-6">
+            <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">Total per year</p>
+            <p class="text-3xl font-semibold mt-2 text-slate-900 dark:text-white">
                 {{ number_format($totalPerYear, 2, '.', ',') }} €
             </p>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Projected annual total</p>
         </div>
     </section>
 
     <section>
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
-            <h2 class="text-2xl font-semibold">Active subscriptions</h2>
-            <div class="inline-flex rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden text-sm">
+            <div class="space-y-1">
+                <h2 class="text-2xl font-semibold">Active subscriptions</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">{{ $subscriptions->count() }} services tracked</p>
+            </div>
+            <div class="inline-flex rounded-full border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 overflow-hidden text-sm shadow-sm">
                 <button
                     wire:click="sortBy('desc')"
-                    class="px-4 py-2 font-medium transition-colors {{ $sortOrder === 'desc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 font-medium leading-none transition-colors {{ $sortOrder === 'desc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
                 >
-                    High → Low
+                    High
+                    <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M8 2.5V13.5M8 13.5L4.5 10M8 13.5L11.5 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Low
                 </button>
                 <button
                     wire:click="sortBy('asc')"
-                    class="px-4 py-2 font-medium transition-colors {{ $sortOrder === 'asc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 font-medium leading-none transition-colors {{ $sortOrder === 'asc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
                 >
-                    Low → High
+                    Low
+                    <svg class="h-3.5 w-3.5 rotate-180" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M8 2.5V13.5M8 13.5L4.5 10M8 13.5L11.5 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    High
                 </button>
             </div>
         </div>
@@ -50,28 +68,29 @@
                             }
                         }
                     @endphp
-                    <div class="subscription-card bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex items-center justify-between hover:shadow-md transition-shadow">
+                    <div wire:key="subscription-compact-{{ $subscription->id }}" class="subscription-card app-card app-card-interactive p-4 space-y-4">
                         <div class="flex items-center gap-3 flex-1 min-w-0">
                             @if($faviconUrl)
-                                <img src="{{ $faviconUrl }}" alt="{{ $subscription->name }} icon" class="w-8 h-8 rounded-full bg-white/40 p-1 shrink-0">
+                                <img src="{{ $faviconUrl }}" alt="{{ $subscription->name }} icon" class="w-9 h-9 rounded-full bg-white/70 p-1 shrink-0">
                             @endif
                             <div class="flex-1 min-w-0">
                                 <p class="text-base font-semibold text-slate-900 dark:text-slate-100 truncate">{{ $subscription->name }}</p>
                                 <p class="text-xs text-slate-500 dark:text-slate-400">{{ number_format($percentage, 1) }}% of monthly spend</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-4 ml-4">
+                        <div class="flex items-center justify-between gap-4">
                             <div class="text-right">
-                                <p class="text-lg font-bold text-slate-900 dark:text-slate-100">{{ number_format($subscription->price, 2, '.', ',') }} €</p>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">/ month</p>
+                                <p class="text-lg font-bold text-slate-900 dark:text-slate-100">
+                                    {{ number_format($subscription->price, 2, '.', ',') }} €
+                                    <span class="text-xs font-medium text-slate-500 dark:text-slate-400">/ month</span>
+                                </p>
                             </div>
                             <div class="flex gap-2">
                                 <button
                                     wire:click="edit({{ $subscription->id }})"
                                     aria-label="Edit {{ $subscription->name }}"
                                     title="Edit"
-                                    class="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 hover:bg-sky-200 dark:hover:bg-sky-800 flex items-center justify-center transition-colors shrink-0"
-                                    style="aspect-ratio: 1 / 1;"
+                                    class="h-10 w-10 rounded-full bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 hover:bg-sky-200 dark:hover:bg-sky-800 flex items-center justify-center transition-colors shrink-0"
                                 >
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -81,14 +100,16 @@
                                     wire:click="delete({{ $subscription->id }})"
                                     aria-label="Delete {{ $subscription->name }}"
                                     title="Delete"
-                                    class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800 flex items-center justify-center transition-colors shrink-0"
-                                    style="aspect-ratio: 1 / 1;"
+                                    class="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-800 flex items-center justify-center transition-colors shrink-0"
                                 >
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                 </button>
                             </div>
+                        </div>
+                        <div class="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800">
+                            <div class="h-1.5 rounded-full bg-sky-500/80" style="width: {{ min($percentage, 100) }}%;"></div>
                         </div>
                     </div>
                 @empty
@@ -104,20 +125,24 @@
                         $percentage = $totalPerMonth > 0 ? ($subscription->price / $totalPerMonth) * 100 : 0;
                         $colors = match (true) {
                             $subscription->price >= 30 => [
-                                'card' => 'bg-gradient-to-br from-rose-500 via-rose-400 to-rose-600 text-white',
-                                'accent' => 'text-white/80',
+                                'card' => 'bg-gradient-to-br from-rose-600 via-rose-500 to-rose-700 text-white',
+                                'accent' => 'text-white/85',
+                                'button' => 'bg-white/15 text-white hover:bg-white/25',
                             ],
                             $subscription->price >= 15 => [
-                                'card' => 'bg-gradient-to-br from-amber-400 via-orange-400 to-orange-500 text-white',
-                                'accent' => 'text-white/80',
+                                'card' => 'bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 text-white',
+                                'accent' => 'text-white/85',
+                                'button' => 'bg-white/15 text-white hover:bg-white/25',
                             ],
                             $subscription->price >= 8 => [
-                                'card' => 'bg-gradient-to-br from-sky-500 via-indigo-500 to-indigo-600 text-white',
-                                'accent' => 'text-white/80',
+                                'card' => 'bg-gradient-to-br from-sky-600 via-indigo-600 to-indigo-700 text-white',
+                                'accent' => 'text-white/85',
+                                'button' => 'bg-white/15 text-white hover:bg-white/25',
                             ],
                             default => [
                                 'card' => 'bg-white text-slate-900 border border-slate-200 dark:bg-slate-900 dark:text-slate-100 dark:border-slate-800',
                                 'accent' => 'text-slate-500 dark:text-slate-400',
+                                'button' => 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:bg-slate-700/80',
                             ],
                         };
                         $faviconUrl = '';
@@ -130,7 +155,7 @@
                             }
                         }
                     @endphp
-                    <div class="subscription-card rounded-2xl shadow p-5 flex flex-col justify-between {{ $colors['card'] }}" style="min-height: 210px;">
+                    <div wire:key="subscription-grid-{{ $subscription->id }}" class="subscription-card rounded-2xl shadow p-5 flex flex-col justify-between {{ $colors['card'] }} app-card-interactive" style="min-height: 210px;">
                         <div>
                             <p class="text-sm uppercase tracking-wide {{ $colors['accent'] }}">Monthly</p>
                             <p class="text-3xl font-bold">{{ number_format($subscription->price, 2, '.', ',') }} €</p>
@@ -144,13 +169,12 @@
                                 <p class="text-lg font-semibold">{{ $subscription->name }}</p>
                             </div>
                             <p class="text-sm {{ $colors['accent'] }}">{{ number_format($subscription->price * 12, 2, '.', ',') }} € / year</p>
-                            <div class="flex gap-2 mt-2">
+                            <div class="flex gap-2 mt-3">
                                 <button
                                     wire:click="edit({{ $subscription->id }})"
                                     aria-label="Edit {{ $subscription->name }}"
                                     title="Edit"
-                                    class="w-10 h-10 rounded-full bg-sky-500/10 dark:bg-sky-400/20 text-sky-600 dark:text-sky-300 hover:bg-sky-500/20 dark:hover:bg-sky-400/30 flex items-center justify-center transition-colors shrink-0"
-                                    style="aspect-ratio: 1 / 1;"
+                                    class="h-10 w-10 rounded-full {{ $colors['button'] }} flex items-center justify-center transition-colors shrink-0"
                                 >
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -160,8 +184,7 @@
                                     wire:click="delete({{ $subscription->id }})"
                                     aria-label="Delete {{ $subscription->name }}"
                                     title="Delete"
-                                    class="w-10 h-10 rounded-full bg-red-500/10 dark:bg-red-400/20 text-red-600 dark:text-red-300 hover:bg-red-500/20 dark:hover:bg-red-400/30 flex items-center justify-center transition-colors shrink-0"
-                                    style="aspect-ratio: 1 / 1;"
+                                    class="h-10 w-10 rounded-full {{ $colors['button'] }} flex items-center justify-center transition-colors shrink-0"
                                 >
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -179,13 +202,4 @@
         @endif
     </section>
 
-    <style>
-        .subscription-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .subscription-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-    </style>
 </div>
