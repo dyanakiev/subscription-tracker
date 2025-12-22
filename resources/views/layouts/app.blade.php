@@ -41,14 +41,14 @@
         <native:bottom-nav-item
             id="subscriptions"
             icon="home"
-            label="Subscriptions"
+            label="My Subs"
             url="{{ route('subscriptions') }}"
             active="{{ request()->routeIs('subscriptions') }}"
         />
         <native:bottom-nav-item
             id="Add Subscription"
             icon="plus"
-            label="Add Subscription"
+            label="Add Sub"
             url="{{ route('add-subscription') }}"
             active="{{ request()->routeIs('add-subscription') }}"
         />
