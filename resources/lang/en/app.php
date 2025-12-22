@@ -51,7 +51,7 @@ return [
     ],
     'form' => [
         'name' => 'Name',
-        'price' => 'Monthly Price (€)',
+        'price' => 'Monthly Price (:currency)',
         'url' => 'URL (optional)',
         'url_help' => 'Used to fetch the subscription icon.',
         'name_placeholder' => 'e.g., Netflix',
@@ -70,6 +70,9 @@ return [
         'language' => 'Language',
         'language_help' => 'Choose the app language',
         'language_updated' => 'Language updated',
+        'currency' => 'Currency',
+        'currency_help' => 'Choose your preferred currency',
+        'currency_updated' => 'Currency updated',
     ],
     'actions' => [
         'edit' => 'Edit',

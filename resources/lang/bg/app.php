@@ -51,7 +51,7 @@ return [
     ],
     'form' => [
         'name' => 'Име',
-        'price' => 'Месечна цена (€)',
+        'price' => 'Месечна цена (:currency)',
         'url' => 'URL (по избор)',
         'url_help' => 'Използва се за показване на иконка.',
         'name_placeholder' => 'напр. Netflix',
@@ -70,6 +70,9 @@ return [
         'language' => 'Език',
         'language_help' => 'Избери езика на приложението',
         'language_updated' => 'Езикът е обновен',
+        'currency' => 'Валута',
+        'currency_help' => 'Избери предпочитана валута',
+        'currency_updated' => 'Валутата е обновена',
     ],
     'actions' => [
         'edit' => 'Редакция',

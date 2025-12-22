@@ -11,14 +11,14 @@
         <div class="app-card p-6">
             <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">{{ __('app.stats.total_month') }}</p>
             <p class="text-3xl font-semibold mt-2 text-slate-900 dark:text-white">
-                {{ number_format($totalPerMonth, 2, '.', ',') }} €
+                {{ number_format($totalPerMonth, 2, '.', ',') }} {{ $currencySymbol }}
             </p>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('app.stats.monthly_spend') }}</p>
         </div>
         <div class="app-card p-6">
             <p class="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">{{ __('app.stats.total_year') }}</p>
             <p class="text-3xl font-semibold mt-2 text-slate-900 dark:text-white">
-                {{ number_format($totalPerYear, 2, '.', ',') }} €
+                {{ number_format($totalPerYear, 2, '.', ',') }} {{ $currencySymbol }}
             </p>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('app.stats.annual_total') }}</p>
         </div>
@@ -83,7 +83,7 @@
                         <div class="flex items-center justify-between gap-4">
                             <div class="text-right">
                                 <p class="text-lg font-bold text-slate-900 dark:text-slate-100">
-                                    {{ number_format($subscription->price, 2, '.', ',') }} €
+                                    {{ number_format($subscription->price, 2, '.', ',') }} {{ $currencySymbol }}
                                     <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{{ __('app.subscriptions.monthly_suffix') }}</span>
                                 </p>
                             </div>
@@ -109,9 +109,6 @@
                                     </svg>
                                 </button>
                             </div>
-                        </div>
-                        <div class="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800">
-                            <div class="h-1.5 rounded-full bg-sky-500/80" style="width: {{ min($percentage, 100) }}%;"></div>
                         </div>
                     </div>
                 @empty
@@ -160,7 +157,7 @@
                     <div wire:key="subscription-grid-{{ $subscription->id }}" class="subscription-card rounded-2xl shadow p-5 flex flex-col justify-between {{ $colors['card'] }} app-card-interactive" style="min-height: 210px;">
                         <div>
                             <p class="text-sm uppercase tracking-wide {{ $colors['accent'] }}">{{ __('app.subscriptions.monthly') }}</p>
-                            <p class="text-3xl font-bold">{{ number_format($subscription->price, 2, '.', ',') }} €</p>
+                            <p class="text-3xl font-bold">{{ number_format($subscription->price, 2, '.', ',') }} {{ $currencySymbol }}</p>
                             <p class="text-sm {{ $colors['accent'] }}">
                                 {{ __('app.subscriptions.of_monthly_spend', ['percent' => number_format($percentage, 1)]) }}
                             </p>
@@ -173,7 +170,7 @@
                                 <p class="text-lg font-semibold">{{ $subscription->name }}</p>
                             </div>
                             <p class="text-sm {{ $colors['accent'] }}">
-                                {{ number_format($subscription->price * 12, 2, '.', ',') }} € {{ __('app.subscriptions.yearly_suffix') }}
+                                {{ number_format($subscription->price * 12, 2, '.', ',') }} {{ $currencySymbol }} {{ __('app.subscriptions.yearly_suffix') }}
                             </p>
                             <div class="flex gap-2 mt-3">
                                 <button

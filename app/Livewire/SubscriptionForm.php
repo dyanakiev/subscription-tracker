@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Mobile\Facades\Dialog;
+use Native\Mobile\Facades\SecureStorage;
 
 #[Layout('layouts.app')]
 class SubscriptionForm extends Component
@@ -94,6 +95,22 @@ class SubscriptionForm extends Component
     {
         return view('livewire.subscription-form', [
             'title' => $this->title,
+            'currencySymbol' => $this->resolveCurrencySymbol(),
         ]);
+    }
+
+    protected function resolveCurrencySymbol(): string
+    {
+        $currencies = config('app.supported_currencies', ['EUR' => '€']);
+
+        try {
+            $storedCurrency = SecureStorage::get('currency');
+        } catch (\Exception $e) {
+            $storedCurrency = null;
+        }
+
+        $currency = $storedCurrency ?: array_key_first($currencies);
+
+        return $currencies[$currency] ?? '€';
     }
 }

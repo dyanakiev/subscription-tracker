@@ -83,6 +83,22 @@ class SubscriptionList extends Component
             'totalPerYear' => $totalPerYear,
             'compactView' => $this->compactView,
             'title' => __('app.titles.subscriptions'),
+            'currencySymbol' => $this->resolveCurrencySymbol(),
         ]);
+    }
+
+    protected function resolveCurrencySymbol(): string
+    {
+        $currencies = config('app.supported_currencies', ['EUR' => '€']);
+
+        try {
+            $storedCurrency = SecureStorage::get('currency');
+        } catch (\Exception $e) {
+            $storedCurrency = null;
+        }
+
+        $currency = $storedCurrency ?: array_key_first($currencies);
+
+        return $currencies[$currency] ?? '€';
     }
 }

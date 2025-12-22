@@ -32,7 +32,7 @@
 
             <div>
                 <label for="price" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    {{ __('app.form.price') }}
+                    {{ __('app.form.price', ['currency' => $currencySymbol]) }}
                 </label>
                 <input
                     type="number"

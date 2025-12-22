@@ -39,6 +39,20 @@
                     @endforeach
                 </select>
             </div>
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm font-medium text-slate-900 dark:text-slate-100">{{ __('app.settings.currency') }}</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('app.settings.currency_help') }}</p>
+                </div>
+                <select
+                    wire:model.live="currency"
+                    class="w-full sm:w-52 rounded-full border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-900/50 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+                >
+                    @foreach($currencies as $value => $label)
+                        <option value="{{ $value }}">{{ $value }} {{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
     </div>
 </div>

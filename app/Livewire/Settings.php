@@ -18,9 +18,14 @@ class Settings extends Component
 
     public string $locale = 'en';
 
+    public array $currencies = [];
+
+    public string $currency = 'EUR';
+
     public function mount(): void
     {
         $this->languages = config('app.supported_locales', ['en' => 'English']);
+        $this->currencies = config('app.supported_currencies', ['EUR' => '€']);
 
         try {
             $this->compactView = SecureStorage::get('compact_view') === 'true';
@@ -29,6 +34,7 @@ class Settings extends Component
         }
 
         $this->locale = $this->resolveLocale();
+        $this->currency = $this->resolveCurrency();
     }
 
     public function toggleCompactView(): void
@@ -63,6 +69,24 @@ class Settings extends Component
         $this->redirect(route('settings'), navigate: true);
     }
 
+    public function updatedCurrency(string $value): void
+    {
+        if (! array_key_exists($value, $this->currencies)) {
+            return;
+        }
+
+        $this->currency = $value;
+
+        try {
+            SecureStorage::set('currency', $value);
+        } catch (\Exception $e) {
+        }
+
+        Dialog::toast(__('app.settings.currency_updated'));
+
+        $this->redirect(route('settings'), navigate: true);
+    }
+
     protected function resolveLocale(): string
     {
         try {
@@ -82,11 +106,29 @@ class Settings extends Component
         return $locale;
     }
 
+    protected function resolveCurrency(): string
+    {
+        try {
+            $storedCurrency = SecureStorage::get('currency');
+        } catch (\Exception $e) {
+            $storedCurrency = null;
+        }
+
+        $currency = $storedCurrency ?: array_key_first($this->currencies);
+
+        if (! array_key_exists($currency, $this->currencies)) {
+            $currency = array_key_first($this->currencies);
+        }
+
+        return $currency;
+    }
+
     public function render(): View
     {
         return view('livewire.settings', [
             'title' => __('app.titles.settings'),
             'languages' => $this->languages,
+            'currencies' => $this->currencies,
         ]);
     }
 }
