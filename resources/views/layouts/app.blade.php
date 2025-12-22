@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>{{ $title ?? config('app.name') }}</title>
+    <title>{{ $title ?? __('app.app_name') }}</title>
     @vite(['resources/css/app.css'])
     @livewireStyles
 </head>
@@ -17,9 +17,9 @@
     <header class="max-w-5xl mx-auto px-5 pt-6">
         <div class="app-card-strong px-5 py-4 flex items-center justify-between">
             <div>
-                <p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Track your expenses</p>
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{{ __('app.header_tagline') }}</p>
                 <h1 class="text-2xl font-semibold text-slate-900 dark:text-white">
-                    Subscription Tracker
+                    {{ $title ?? __('app.app_name') }}
                 </h1>
             </div>
             <div class="h-10 w-10 rounded-full bg-slate-900 text-white dark:bg-white dark:text-slate-900 flex items-center justify-center">
@@ -41,21 +41,21 @@
         <native:bottom-nav-item
             id="subscriptions"
             icon="home"
-            label="My Subs"
+            label="{{ __('app.nav.home') }}"
             url="{{ route('subscriptions') }}"
             active="{{ request()->routeIs('subscriptions') }}"
         />
         <native:bottom-nav-item
             id="Add Subscription"
             icon="plus"
-            label="Add Sub"
+            label="{{ __('app.nav.add') }}"
             url="{{ route('add-subscription') }}"
             active="{{ request()->routeIs('add-subscription') }}"
         />
         <native:bottom-nav-item
             id="settings"
             icon="settings"
-            label="Settings"
+            label="{{ __('app.nav.settings') }}"
             url="{{ route('settings') }}"
             active="{{ request()->routeIs('settings') }}"
         />

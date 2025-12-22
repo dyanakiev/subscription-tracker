@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Subscription;
+use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Mobile\Facades\Dialog;
@@ -27,7 +28,9 @@ class SubscriptionForm extends Component
             $this->loadSubscription($subscriptionId);
         }
 
-        $this->title = ($this->subscription ? 'Edit Subscription' : 'Add Subscription');
+        $this->title = $this->subscription
+            ? __('app.titles.edit_subscription')
+            : __('app.titles.add_subscription');
     }
 
     protected function loadSubscription(int $id): void
@@ -60,7 +63,7 @@ class SubscriptionForm extends Component
                 'url' => $this->url ?: null,
             ]);
 
-            Dialog::toast('Subscription updated successfully!');
+            Dialog::toast(__('app.toasts.subscription_updated'));
         } else {
             Subscription::create([
                 'name' => $this->name,
@@ -68,7 +71,7 @@ class SubscriptionForm extends Component
                 'url' => $this->url ?: null,
             ]);
 
-            Dialog::toast('Subscription added successfully!');
+            Dialog::toast(__('app.toasts.subscription_added'));
         }
 
         $this->reset(['name', 'price', 'url']);
@@ -87,7 +90,7 @@ class SubscriptionForm extends Component
         $this->redirect(route('subscriptions'), navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.subscription-form', [
             'title' => $this->title,

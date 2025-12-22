@@ -3,9 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Subscription;
+use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Native\Mobile\Attributes\OnNative;
 use Native\Mobile\Events\Alert\ButtonPressed;
@@ -13,7 +13,6 @@ use Native\Mobile\Facades\Dialog;
 use Native\Mobile\Facades\SecureStorage;
 
 #[Layout('layouts.app')]
-#[Title('Subscriptions Tracker')]
 class SubscriptionList extends Component
 {
     public string $sortOrder = 'desc';
@@ -45,9 +44,9 @@ class SubscriptionList extends Component
         $subscription = Subscription::findOrFail($id);
 
         Dialog::alert(
-            'Delete Subscription',
-            "Are you sure you want to delete \"{$subscription->name}\"? This action cannot be undone.",
-            ['Cancel', 'Delete']
+            __('app.dialogs.delete_title'),
+            __('app.dialogs.delete_body', ['name' => $subscription->name]),
+            [__('app.actions.cancel'), __('app.actions.delete')]
         )->id("delete-subscription-{$id}")->event(ButtonPressed::class);
     }
 
@@ -58,7 +57,7 @@ class SubscriptionList extends Component
             // User clicked "Delete" (index 1) and this is a delete dialog
             $subscriptionId = (int) str_replace('delete-subscription-', '', $id);
             Subscription::findOrFail($subscriptionId)->delete();
-            Dialog::toast('Subscription deleted');
+            Dialog::toast(__('app.toasts.subscription_deleted'));
         }
         // If Cancel (index 0) or invalid, do nothing
     }
@@ -68,7 +67,7 @@ class SubscriptionList extends Component
         $this->redirect(route('add-subscription', ['id' => $id]), navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         $subscriptions = Subscription::query()
             ->when($this->sortOrder === 'desc', fn ($query) => $query->orderByDesc('price'))
@@ -83,6 +82,7 @@ class SubscriptionList extends Component
             'totalPerMonth' => $totalPerMonth,
             'totalPerYear' => $totalPerYear,
             'compactView' => $this->compactView,
+            'title' => __('app.titles.subscriptions'),
         ]);
     }
 }

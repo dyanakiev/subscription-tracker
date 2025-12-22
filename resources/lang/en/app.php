@@ -1,0 +1,92 @@
+<?php
+
+return [
+    'app_name' => 'Subscription Tracker',
+    'header_tagline' => 'Track your expenses',
+    'nav' => [
+        'home' => 'My Subs',
+        'add' => 'Add Sub',
+        'settings' => 'Settings',
+    ],
+    'badges' => [
+        'monthly_pulse' => 'Monthly Pulse',
+        'preferences' => 'Preferences',
+        'update' => 'Update',
+        'create' => 'Create',
+    ],
+    'titles' => [
+        'subscriptions' => 'Subscriptions',
+        'add_subscription' => 'Add Subscription',
+        'edit_subscription' => 'Edit Subscription',
+        'settings' => 'Settings',
+    ],
+    'headers' => [
+        'subscriptions_glance' => 'Subscriptions at a glance',
+        'personalize' => 'Personalize your tracker',
+    ],
+    'descriptions' => [
+        'subscription_intro' => 'See where your recurring money goes every month and year.',
+        'subscription_edit' => 'Edit your subscription details.',
+        'subscription_add' => 'Add a new subscription to track.',
+        'manage_preferences' => 'Manage your application preferences.',
+    ],
+    'stats' => [
+        'total_month' => 'Total per month',
+        'total_year' => 'Total per year',
+        'monthly_spend' => 'Core monthly spend',
+        'annual_total' => 'Projected annual total',
+    ],
+    'subscriptions' => [
+        'active' => 'Active subscriptions',
+        'monthly' => 'Monthly',
+        'monthly_suffix' => '/ month',
+        'yearly_suffix' => '/ year',
+        'of_monthly_spend' => ':percent% of monthly spend',
+        'empty' => 'No subscriptions yet. Add your first subscription!',
+        'tracked' => '{0} No services tracked|{1} :count service tracked|[2,*] :count services tracked',
+    ],
+    'sort' => [
+        'high' => 'High',
+        'low' => 'Low',
+    ],
+    'form' => [
+        'name' => 'Name',
+        'price' => 'Monthly Price (€)',
+        'url' => 'URL (optional)',
+        'url_help' => 'Used to fetch the subscription icon.',
+        'name_placeholder' => 'e.g., Netflix',
+        'price_placeholder' => '0.00',
+        'url_placeholder' => 'https://example.com',
+        'submit_add' => 'Add Subscription',
+        'submit_update' => 'Update Subscription',
+        'cancel' => 'Cancel',
+    ],
+    'settings' => [
+        'display' => 'Display Settings',
+        'compact' => 'Compact View',
+        'compact_help' => 'Show subscriptions in a more compact layout',
+        'enabled' => 'Enabled',
+        'disabled' => 'Disabled',
+        'language' => 'Language',
+        'language_help' => 'Choose the app language',
+        'language_updated' => 'Language updated',
+    ],
+    'actions' => [
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'cancel' => 'Cancel',
+        'edit_subscription' => 'Edit :name',
+        'delete_subscription' => 'Delete :name',
+    ],
+    'dialogs' => [
+        'delete_title' => 'Delete Subscription',
+        'delete_body' => 'Are you sure you want to delete ":name"? This action cannot be undone.',
+    ],
+    'toasts' => [
+        'subscription_deleted' => 'Subscription deleted',
+        'subscription_updated' => 'Subscription updated successfully!',
+        'subscription_added' => 'Subscription added successfully!',
+        'compact_enabled' => 'Compact view enabled',
+        'compact_disabled' => 'Compact view disabled',
+    ],
+];
