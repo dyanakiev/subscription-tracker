@@ -22,6 +22,8 @@ class SubscriptionForm extends Component
 
     public string $title = '';
 
+    public bool $isActive = true;
+
     public function mount(?int $id = null): void
     {
         if ($id || request()->has('id')) {
@@ -40,6 +42,7 @@ class SubscriptionForm extends Component
         $this->name = $this->subscription->name;
         $this->price = (string) $this->subscription->price;
         $this->url = $this->subscription->url;
+        $this->isActive = $this->subscription->is_active;
     }
 
     protected function rules(): array
@@ -48,6 +51,7 @@ class SubscriptionForm extends Component
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
             'url' => ['nullable', 'url', 'max:255'],
+            'isActive' => ['boolean'],
         ];
     }
 
@@ -62,6 +66,7 @@ class SubscriptionForm extends Component
                 'name' => $this->name,
                 'price' => (float) $this->price,
                 'url' => $this->url ?: null,
+                'is_active' => $this->isActive,
             ]);
 
             Dialog::toast(__('app.toasts.subscription_updated'));
@@ -70,12 +75,13 @@ class SubscriptionForm extends Component
                 'name' => $this->name,
                 'price' => (float) $this->price,
                 'url' => $this->url ?: null,
+                'is_active' => true,
             ]);
 
             Dialog::toast(__('app.toasts.subscription_added'));
         }
 
-        $this->reset(['name', 'price', 'url']);
+        $this->reset(['name', 'price', 'url', 'isActive']);
         $this->subscription = null;
 
         $this->dispatch('subscription-saved');
@@ -85,7 +91,7 @@ class SubscriptionForm extends Component
 
     public function cancel(): void
     {
-        $this->reset(['name', 'price', 'url']);
+        $this->reset(['name', 'price', 'url', 'isActive']);
         $this->subscription = null;
 
         $this->redirect(route('subscriptions'), navigate: true);
@@ -101,7 +107,7 @@ class SubscriptionForm extends Component
 
     protected function resolveCurrencySymbol(): string
     {
-        $currencies = config('app.supported_currencies', ['EUR' => '€']);
+        $currencies = config('currencies.supported', ['EUR' => '€']);
 
         try {
             $storedCurrency = SecureStorage::get('currency');

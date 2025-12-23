@@ -44,6 +44,12 @@ return [
         'of_monthly_spend' => ':percent% от месечните разходи',
         'empty' => 'Още няма абонаменти. Добави първия си!',
         'tracked' => '{0} Няма услуги|{1} :count услуга|[2,*] :count услуги',
+        'filter_active' => 'Активни',
+        'filter_inactive' => 'Спрени',
+        'filter_all' => 'Всички',
+        'filters' => 'Филтри',
+        'filter_label' => 'Статус',
+        'sort_label' => 'Сортиране',
     ],
     'sort' => [
         'high' => 'Високо',
@@ -60,6 +66,8 @@ return [
         'submit_add' => 'Добави абонамент',
         'submit_update' => 'Обнови абонамента',
         'cancel' => 'Отказ',
+        'active' => 'Активен абонамент',
+        'active_help' => 'Изключи, за да спреш абонамента.',
     ],
     'settings' => [
         'display' => 'Настройки на изгледа',

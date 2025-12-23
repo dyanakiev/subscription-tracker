@@ -24,8 +24,8 @@ class Settings extends Component
 
     public function mount(): void
     {
-        $this->languages = config('app.supported_locales', ['en' => 'English']);
-        $this->currencies = config('app.supported_currencies', ['EUR' => '€']);
+        $this->languages = config('languages.supported', ['en' => 'English']);
+        $this->currencies = config('currencies.supported', ['EUR' => '€']);
 
         try {
             $this->compactView = SecureStorage::get('compact_view') === 'true';

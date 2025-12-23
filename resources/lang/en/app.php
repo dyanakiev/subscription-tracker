@@ -44,6 +44,12 @@ return [
         'of_monthly_spend' => ':percent% of monthly spend',
         'empty' => 'No subscriptions yet. Add your first subscription!',
         'tracked' => '{0} No services tracked|{1} :count service tracked|[2,*] :count services tracked',
+        'filter_active' => 'Active',
+        'filter_inactive' => 'Stopped',
+        'filter_all' => 'All',
+        'filters' => 'Filters',
+        'filter_label' => 'Status',
+        'sort_label' => 'Sort',
     ],
     'sort' => [
         'high' => 'High',
@@ -60,6 +66,8 @@ return [
         'submit_add' => 'Add Subscription',
         'submit_update' => 'Update Subscription',
         'cancel' => 'Cancel',
+        'active' => 'Active subscription',
+        'active_help' => 'Turn off to stop this subscription.',
     ],
     'settings' => [
         'display' => 'Display Settings',

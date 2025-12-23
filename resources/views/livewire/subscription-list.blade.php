@@ -25,33 +25,76 @@
     </section>
 
     <section>
-        <div class="mb-4 space-y-2">
+        <div class="mb-4 space-y-3">
             <div class="flex items-center justify-between gap-3">
                 <h2 class="text-2xl font-semibold">{{ __('app.subscriptions.active') }}</h2>
-                <div class="inline-flex rounded-full border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 overflow-hidden text-sm shadow-sm">
-                    <button
-                        wire:click="sortBy('desc')"
-                        aria-label="{{ __('app.sort.high') }}"
-                        class="inline-flex items-center justify-center h-9 w-9 transition-colors {{ $sortOrder === 'desc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
-                    >
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                            <path d="M8 2.5V13.5M8 13.5L4.5 10M8 13.5L11.5 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <button
-                        wire:click="sortBy('asc')"
-                        aria-label="{{ __('app.sort.low') }}"
-                        class="inline-flex items-center justify-center h-9 w-9 transition-colors {{ $sortOrder === 'asc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
-                    >
-                        <svg class="h-3.5 w-3.5 rotate-180" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                            <path d="M8 2.5V13.5M8 13.5L4.5 10M8 13.5L11.5 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
+                <button
+                    type="button"
+                    wire:click="toggleFilters"
+                    aria-label="{{ __('app.subscriptions.filters') }}"
+                    class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 text-slate-600 dark:text-slate-200 shadow-sm transition-colors hover:bg-slate-50 dark:hover:bg-slate-800"
+                >
+                    <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M2 3.5H14M4.5 8H11.5M6.5 12.5H9.5" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"/>
+                        <circle cx="6" cy="3.5" r="1.5" fill="currentColor"/>
+                        <circle cx="10" cy="8" r="1.5" fill="currentColor"/>
+                        <circle cx="8" cy="12.5" r="1.5" fill="currentColor"/>
+                    </svg>
+                </button>
             </div>
             <p class="text-sm text-slate-500 dark:text-slate-400">
                 {{ trans_choice('app.subscriptions.tracked', $subscriptions->count(), ['count' => $subscriptions->count()]) }}
             </p>
+            @if($filtersOpen)
+                <div class="app-card p-4 space-y-3">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400">{{ __('app.subscriptions.filter_label') }}</p>
+                        <div class="mt-2 inline-flex rounded-full border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 overflow-hidden text-xs shadow-sm">
+                            <button
+                                wire:click="setStatusFilter('active')"
+                                class="px-3 py-1.5 font-semibold transition-colors {{ $statusFilter === 'active' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                            >
+                                {{ __('app.subscriptions.filter_active') }}
+                            </button>
+                            <button
+                                wire:click="setStatusFilter('inactive')"
+                                class="px-3 py-1.5 font-semibold transition-colors {{ $statusFilter === 'inactive' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                            >
+                                {{ __('app.subscriptions.filter_inactive') }}
+                            </button>
+                            <button
+                                wire:click="setStatusFilter('all')"
+                                class="px-3 py-1.5 font-semibold transition-colors {{ $statusFilter === 'all' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                            >
+                                {{ __('app.subscriptions.filter_all') }}
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400">{{ __('app.subscriptions.sort_label') }}</p>
+                        <div class="mt-2 inline-flex rounded-full border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-900/70 overflow-hidden text-sm shadow-sm">
+                            <button
+                                wire:click="sortBy('desc')"
+                                aria-label="{{ __('app.sort.high') }}"
+                                class="inline-flex items-center justify-center h-9 w-9 transition-colors {{ $sortOrder === 'desc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                            >
+                                <svg class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <path d="M8 2.5V13.5M8 13.5L4.5 10M8 13.5L11.5 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <button
+                                wire:click="sortBy('asc')"
+                                aria-label="{{ __('app.sort.low') }}"
+                                class="inline-flex items-center justify-center h-9 w-9 transition-colors {{ $sortOrder === 'asc' ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100' : 'bg-transparent text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100' }}"
+                            >
+                                <svg class="h-3.5 w-3.5 rotate-180" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                    <path d="M8 2.5V13.5M8 13.5L4.5 10M8 13.5L11.5 10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
         @if($compactView)
             <div class="space-y-4">

@@ -19,6 +19,10 @@ class SubscriptionList extends Component
 
     public bool $compactView = false;
 
+    public string $statusFilter = 'active';
+
+    public bool $filtersOpen = false;
+
     public function mount(): void
     {
         try {
@@ -37,6 +41,16 @@ class SubscriptionList extends Component
     public function sortBy(string $order): void
     {
         $this->sortOrder = $order;
+    }
+
+    public function setStatusFilter(string $filter): void
+    {
+        $this->statusFilter = $filter;
+    }
+
+    public function toggleFilters(): void
+    {
+        $this->filtersOpen = ! $this->filtersOpen;
     }
 
     public function delete(int $id): void
@@ -70,6 +84,8 @@ class SubscriptionList extends Component
     public function render(): View
     {
         $subscriptions = Subscription::query()
+            ->when($this->statusFilter === 'active', fn ($query) => $query->where('is_active', true))
+            ->when($this->statusFilter === 'inactive', fn ($query) => $query->where('is_active', false))
             ->when($this->sortOrder === 'desc', fn ($query) => $query->orderByDesc('price'))
             ->when($this->sortOrder === 'asc', fn ($query) => $query->orderBy('price'))
             ->get();
@@ -89,7 +105,7 @@ class SubscriptionList extends Component
 
     protected function resolveCurrencySymbol(): string
     {
-        $currencies = config('app.supported_currencies', ['EUR' => '€']);
+        $currencies = config('currencies.supported', ['EUR' => '€']);
 
         try {
             $storedCurrency = SecureStorage::get('currency');

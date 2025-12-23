@@ -21,7 +21,7 @@ class SetLocale
 
     protected function resolveLocale(Request $request): ?string
     {
-        $supportedLocales = array_keys(config('app.supported_locales', ['en' => 'English']));
+        $supportedLocales = array_keys(config('languages.supported', ['en' => 'English']));
 
         try {
             $storedLocale = SecureStorage::get('locale');

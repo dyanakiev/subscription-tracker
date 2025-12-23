@@ -65,10 +65,24 @@
                 @enderror
             </div>
 
-        <button
-            type="submit"
-            class="w-full px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-xl transition-colors shadow-sm"
-        >
+            @if($subscription)
+                <div class="flex items-center justify-between rounded-2xl border border-slate-200/80 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-900/50 px-4 py-3">
+                    <div>
+                        <p class="text-sm font-medium text-slate-900 dark:text-slate-100">{{ __('app.form.active') }}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('app.form.active_help') }}</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" wire:model.live="isActive" class="sr-only peer">
+                        <div class="h-6 w-11 rounded-full bg-slate-200 peer-checked:bg-emerald-500 dark:bg-slate-700 transition-colors"></div>
+                        <div class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow-sm transition-transform peer-checked:translate-x-5"></div>
+                    </label>
+                </div>
+            @endif
+
+            <button
+                type="submit"
+                class="w-full px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-xl transition-colors shadow-sm"
+            >
             {{ $subscription ? __('app.form.submit_update') : __('app.form.submit_add') }}
         </button>
 

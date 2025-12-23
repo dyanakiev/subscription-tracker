@@ -19,6 +19,7 @@ class Subscription extends Model
         'name',
         'price',
         'url',
+        'is_active',
     ];
 
     /**
@@ -30,6 +31,7 @@ class Subscription extends Model
     {
         return [
             'price' => 'decimal:2',
+            'is_active' => 'boolean',
         ];
     }
 }
