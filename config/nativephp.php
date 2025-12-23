@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'start_url' => env('NATIVEPHP_START_URL', '/'),
+    'start_url' => env('NATIVEPHP_START_URL', '/subscriptions'),
 
     /*
     |--------------------------------------------------------------------------
@@ -129,6 +129,8 @@ return [
         'storage/framework/cache',
         'storage/framework/testing',
         'storage/logs/laravel.log',
+        'database/database.sqlite',
+        'database/testing.sqlite'
     ],
 
     'android' => [

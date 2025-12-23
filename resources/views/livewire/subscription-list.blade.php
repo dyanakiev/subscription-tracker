@@ -105,7 +105,7 @@
                         if ($subscription->url) {
                             try {
                                 $hostname = parse_url($subscription->url, PHP_URL_HOST);
-                                $faviconUrl = $hostname ? "https://favicone.com/{$hostname}" : '';
+                                $faviconUrl = $hostname ? "https://www.google.com/s2/favicons?domain={$hostname}&sz=64" : '';
                             } catch (\Exception $e) {
                                 $faviconUrl = '';
                             }
@@ -191,7 +191,7 @@
                         if ($subscription->url) {
                             try {
                                 $hostname = parse_url($subscription->url, PHP_URL_HOST);
-                                $faviconUrl = $hostname ? "https://favicone.com/{$hostname}" : '';
+                                $faviconUrl = $hostname ? "https://www.google.com/s2/favicons?domain={$hostname}&sz=64" : '';
                             } catch (\Exception $e) {
                                 $faviconUrl = '';
                             }

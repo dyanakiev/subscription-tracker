@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 10, 2);
             $table->string('url')->nullable();
+            $table->boolean('is_active')->default(true)->after('url');
             $table->timestamps();
         });
     }

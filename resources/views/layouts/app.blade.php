@@ -32,7 +32,7 @@
         {{ $slot }}
     </div>
 
-    <div class="fixed bottom-0 left-0 w-full z-50 pb-[var(--inset-bottom)]">
+    <div class="fixed bottom-0 left-0 w-full z-50 pb-[var(--inset-bottom)]" wire:ignore.self>
         <div class="max-w-5xl mx-auto px-5 pb-3">
             <div class="app-card-strong flex items-center justify-between gap-2 px-3 py-2 bg-white/95 dark:bg-slate-900/95">
                 <a
