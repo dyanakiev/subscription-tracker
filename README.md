@@ -1,6 +1,8 @@
 # Subscription Tracker
 
-<img src="public/icon.png" alt="App Icon" width="50%">
+<p align="center">
+  <img src="public/icon.png" alt="App Icon" width="50%" style="border-radius: 16px;">
+</p>
 
 A NativePHP Mobile app for tracking recurring subscriptions, built with Laravel, Livewire, and Tailwind. It stores device-specific settings via NativePHP Secure Storage, so the web-only Laravel app experience is incomplete.
 

@@ -1,11 +1,11 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "dyanakiev/subscription-tracker",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A NativePHP Mobile app for tracking recurring subscriptions.",
     "keywords": [
         "laravel",
-        "framework"
+        "NativePHP"
     ],
     "license": "MIT",
     "require": {
