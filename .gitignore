@@ -25,3 +25,5 @@ Thumbs.db
 ios-hot
 android-hot
 NUL
+# Credential files (keystores, private keys, etc.)
+/credentials/
