@@ -22,7 +22,7 @@ return [
     ],
     'headers' => [
         'subscriptions_glance' => 'Преглед на абонаментите',
-        'personalize' => 'Персонализирай тракера си',
+        'personalize' => 'Персонализирай',
     ],
     'descriptions' => [
         'subscription_intro' => 'Виж къде отиват месечните ти разходи и годишно.',
