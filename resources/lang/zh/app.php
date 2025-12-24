@@ -81,6 +81,10 @@ return [
         'currency' => '货币',
         'currency_help' => '选择首选货币',
         'currency_updated' => '货币已更新',
+        'legal' => '法律信息',
+        'privacy_policy' => '隐私政策',
+        'privacy_policy_help' => '查看我们的隐私政策',
+        'view' => '查看',
     ],
     'actions' => [
         'edit' => '编辑',

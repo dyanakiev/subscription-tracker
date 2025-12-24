@@ -81,6 +81,10 @@ return [
         'currency' => 'Valuta',
         'currency_help' => 'Scegli la valuta preferita',
         'currency_updated' => 'Valuta aggiornata',
+        'legal' => 'Legale',
+        'privacy_policy' => 'Informativa sulla privacy',
+        'privacy_policy_help' => 'Visualizza la nostra informativa sulla privacy',
+        'view' => 'Visualizza',
     ],
     'actions' => [
         'edit' => 'Modifica',

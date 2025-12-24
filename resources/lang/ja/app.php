@@ -81,6 +81,10 @@ return [
         'currency' => '通貨',
         'currency_help' => '希望の通貨を選択',
         'currency_updated' => '通貨を更新しました',
+        'legal' => '法的情報',
+        'privacy_policy' => 'プライバシーポリシー',
+        'privacy_policy_help' => 'プライバシーポリシーを表示',
+        'view' => '表示',
     ],
     'actions' => [
         'edit' => '編集',

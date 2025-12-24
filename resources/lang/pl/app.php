@@ -81,6 +81,10 @@ return [
         'currency' => 'Waluta',
         'currency_help' => 'Wybierz preferowaną walutę',
         'currency_updated' => 'Waluta zaktualizowana',
+        'legal' => 'Informacje prawne',
+        'privacy_policy' => 'Polityka prywatności',
+        'privacy_policy_help' => 'Wyświetl naszą politykę prywatności',
+        'view' => 'Wyświetl',
     ],
     'actions' => [
         'edit' => 'Edytuj',

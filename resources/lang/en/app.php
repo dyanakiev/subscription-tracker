@@ -81,6 +81,10 @@ return [
         'currency' => 'Currency',
         'currency_help' => 'Choose your preferred currency',
         'currency_updated' => 'Currency updated',
+        'legal' => 'Legal',
+        'privacy_policy' => 'Privacy Policy',
+        'privacy_policy_help' => 'View our privacy policy',
+        'view' => 'View',
     ],
     'actions' => [
         'edit' => 'Edit',

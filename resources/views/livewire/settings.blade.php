@@ -55,4 +55,29 @@
             </div>
         </div>
     </div>
+
+    <div class="app-card-strong p-6 animate-fade-up animation-delay-300">
+        <h3 class="text-xl font-semibold mb-6">{{ __('app.settings.legal') }}</h3>
+
+        <div class="space-y-4">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm font-medium text-slate-900 dark:text-slate-100">{{ __('app.settings.privacy_policy') }}</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('app.settings.privacy_policy_help') }}</p>
+                </div>
+                <a
+                    href="{{ route('privacy-policy') }}"
+                    wire:navigate
+                    class="inline-flex items-center gap-2 rounded-full border border-slate-200/80 dark:border-slate-700 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-100 bg-white dark:bg-slate-900/50 shadow-sm transition-colors hover:bg-slate-50 dark:hover:bg-slate-800"
+                >
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    {{ __('app.settings.view') }}
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

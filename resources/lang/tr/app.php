@@ -81,6 +81,10 @@ return [
         'currency' => 'Para birimi',
         'currency_help' => 'Tercih edilen para birimini seçin',
         'currency_updated' => 'Para birimi güncellendi',
+        'legal' => 'Hukuki',
+        'privacy_policy' => 'Gizlilik Politikası',
+        'privacy_policy_help' => 'Gizlilik politikamızı görüntüleyin',
+        'view' => 'Görüntüle',
     ],
     'actions' => [
         'edit' => 'Düzenle',

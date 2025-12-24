@@ -81,6 +81,10 @@ return [
         'currency' => '통화',
         'currency_help' => '선호 통화를 선택하세요',
         'currency_updated' => '통화가 업데이트되었습니다',
+        'legal' => '법적 고지',
+        'privacy_policy' => '개인정보 처리방침',
+        'privacy_policy_help' => '개인정보 처리방침 보기',
+        'view' => '보기',
     ],
     'actions' => [
         'edit' => '수정',

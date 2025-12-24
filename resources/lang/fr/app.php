@@ -81,6 +81,10 @@ return [
         'currency' => 'Devise',
         'currency_help' => 'Choisissez votre devise préférée',
         'currency_updated' => 'Devise mise à jour',
+        'legal' => 'Juridique',
+        'privacy_policy' => 'Politique de confidentialité',
+        'privacy_policy_help' => 'Voir notre politique de confidentialité',
+        'view' => 'Voir',
     ],
     'actions' => [
         'edit' => 'Modifier',
