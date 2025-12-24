@@ -54,3 +54,6 @@ composer run test
 
 ## NativePHP
 This project targets NativePHP Mobile. Follow the NativePHP setup docs before running on iOS or Android, and follow the NativePHP deployment docs for App Store / Play Store releases.
+
+## License
+Licensed under the Apache License, Version 2.0. See `LICENSE` and `NOTICE`.
