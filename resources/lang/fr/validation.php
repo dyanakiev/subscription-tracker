@@ -155,9 +155,8 @@ return [
     'uppercase'              => 'Le champ :attribute doit être en majuscules.',
     'url'                    => 'Le format de l\'URL de :attribute n\'est pas valide.',
     'uuid'                   => 'Le champ :attribute doit être un UUID valide',
-
-    'attributes' => [
-        'name' => 'Nom',
+    'attributes'             => [
+        'name'  => 'Nom',
         'price' => 'Prix',
     ],
 ];

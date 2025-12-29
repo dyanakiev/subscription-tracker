@@ -155,9 +155,8 @@ return [
     'uppercase'              => 'The :attribute field must be uppercase.',
     'url'                    => 'The :attribute field must be a valid URL.',
     'uuid'                   => 'The :attribute field must be a valid UUID.',
-
-    'attributes' => [
-        'name' => 'Name',
+    'attributes'             => [
+        'name'  => 'Name',
         'price' => 'Price',
     ],
 ];

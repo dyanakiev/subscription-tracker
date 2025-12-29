@@ -1,19 +1,15 @@
 <?php
 
-use App\Livewire\PrivacyPolicy;
+use Inertia\Testing\AssertableInertia as Assert;
 
 it('has a privacy policy page', function () {
     $response = $this->get('/privacy-policy');
 
     $response->assertSuccessful()
-        ->assertSeeLivewire(PrivacyPolicy::class)
+        ->assertInertia(fn (Assert $page) => $page
+            ->component('PrivacyPolicy')
+            ->where('effectiveDate', 'December 24, 2025'))
         ->assertSee('Privacy Policy')
-        ->assertSee('Effective date')
         ->assertSee('December 24, 2025')
-        ->assertSee('does not collect, transmit, or sell personal information')
-        ->assertSee('Data retention and deletion')
-        ->assertSee('Third-party services')
-        ->assertSee('Your rights')
-        ->assertSee('Contact')
         ->assertSee('Track your expenses');
 });

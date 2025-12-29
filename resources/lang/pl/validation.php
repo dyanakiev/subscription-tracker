@@ -155,9 +155,8 @@ return [
     'uppercase'              => 'Pole :attribute musi być zapisane wielkimi literami.',
     'url'                    => 'Format pola :attribute jest nieprawidłowy.',
     'uuid'                   => 'Pole :attribute musi być poprawnym identyfikatorem UUID.',
-
-    'attributes' => [
-        'name' => 'Nazwa',
+    'attributes'             => [
+        'name'  => 'Nazwa',
         'price' => 'Cena',
     ],
 ];

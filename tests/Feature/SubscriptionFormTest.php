@@ -1,9 +1,7 @@
 <?php
 
-use App\Livewire\SubscriptionForm;
 use App\Models\Subscription;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
 use Native\Mobile\Facades\Dialog;
 
 uses(RefreshDatabase::class);
@@ -11,13 +9,13 @@ uses(RefreshDatabase::class);
 it('creates a subscription', function () {
     Dialog::shouldReceive('toast')->once()->andReturnNull();
 
-    Livewire::test(SubscriptionForm::class)
-        ->set('name', 'Netflix')
-        ->set('price', '9.99')
-        ->set('url', 'https://netflix.com')
-        ->call('save')
-        ->assertRedirect(route('subscriptions'))
-        ->assertDispatched('subscription-saved');
+    $response = $this->post('/subscriptions', [
+        'name' => 'Netflix',
+        'price' => '9.99',
+        'url' => 'https://netflix.com',
+    ]);
+
+    $response->assertRedirect(route('subscriptions'));
 
     $subscription = Subscription::query()->first();
 
@@ -38,14 +36,14 @@ it('updates a subscription', function () {
 
     Dialog::shouldReceive('toast')->once()->andReturnNull();
 
-    Livewire::test(SubscriptionForm::class, ['id' => $subscription->id])
-        ->set('name', 'Hulu Plus')
-        ->set('price', '15.00')
-        ->set('url', null)
-        ->set('isActive', true)
-        ->call('save')
-        ->assertRedirect(route('subscriptions'))
-        ->assertDispatched('subscription-saved');
+    $response = $this->post("/subscriptions/{$subscription->id}/update", [
+        'name' => 'Hulu Plus',
+        'price' => '15.00',
+        'url' => null,
+        'is_active' => true,
+    ]);
+
+    $response->assertRedirect(route('subscriptions'));
 
     $subscription->refresh();
 
@@ -58,9 +56,10 @@ it('updates a subscription', function () {
 it('validates required fields', function () {
     Dialog::shouldReceive('toast')->never();
 
-    Livewire::test(SubscriptionForm::class)
-        ->set('name', '')
-        ->set('price', '')
-        ->call('save')
-        ->assertHasErrors(['name' => 'required', 'price' => 'required']);
+    $response = $this->post('/subscriptions', [
+        'name' => '',
+        'price' => '',
+    ]);
+
+    $response->assertSessionHasErrors(['name', 'price']);
 });

@@ -1,19 +1,23 @@
 <?php
 
-use App\Livewire\PrivacyPolicy;
-use App\Livewire\Settings;
-use App\Livewire\SubscriptionForm;
-use App\Livewire\SubscriptionList;
+use App\Http\Controllers\PrivacyPolicyController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('subscriptions');
 });
 
-Route::get('/subscriptions', SubscriptionList::class)->name('subscriptions');
+Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions');
+Route::get('/add-subscription', [SubscriptionController::class, 'create'])->name('add-subscription');
+Route::post('/subscriptions', [SubscriptionController::class, 'store'])->name('subscriptions.store');
+Route::get('/subscriptions/{subscription}/edit', [SubscriptionController::class, 'edit'])->name('subscriptions.edit');
+Route::put('/subscriptions/{subscription}', [SubscriptionController::class, 'update'])->name('subscriptions.update');
+Route::post('/subscriptions/{subscription}/update', [SubscriptionController::class, 'update'])->name('subscriptions.update.post');
+Route::delete('/subscriptions/{subscription}', [SubscriptionController::class, 'destroy'])->name('subscriptions.destroy');
 
-Route::get('/add-subscription', SubscriptionForm::class)->name('add-subscription');
+Route::get('/settings', [SettingsController::class, 'show'])->name('settings');
+Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
-Route::get('/settings', Settings::class)->name('settings');
-
-Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy-policy');
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('privacy-policy');

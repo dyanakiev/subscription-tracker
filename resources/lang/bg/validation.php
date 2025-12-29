@@ -155,9 +155,8 @@ return [
     'uppercase'              => ':Attribute трябва да са главни букви.',
     'url'                    => 'Полето :attribute е в невалиден формат.',
     'uuid'                   => ':Attribute трябва да бъде валиден UUID.',
-
-    'attributes' => [
-        'name' => 'Име',
+    'attributes'             => [
+        'name'  => 'Име',
         'price' => 'Цена',
     ],
 ];

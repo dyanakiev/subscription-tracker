@@ -155,9 +155,8 @@ return [
     'uppercase'              => ':Attribute büyük harf olmalıdır.',
     'url'                    => ':Attribute biçimi geçersiz.',
     'uuid'                   => ':Attribute mutlaka geçerli bir UUID olmalıdır.',
-
-    'attributes' => [
-        'name' => 'Ad',
+    'attributes'             => [
+        'name'  => 'Ad',
         'price' => 'Fiyat',
     ],
 ];
